@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Poppins-Bold.ttf",
+      "sha1": "413c7c6188f5b73482c71097dcc86cff6ded05f6"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Medium.ttf",
+      "sha1": "283f21b44efbdbf276ba802be2d949a36bbc4233"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-Regular.ttf",
+      "sha1": "7ec8b23db953874bbc2802b49bbf57c9b87a1d1c"
+    },
+    {
+      "path": "src/assets/fonts/Poppins-SemiBold.ttf",
+      "sha1": "b154c9a349e19de35b375e6cdb0ee9b8c89c3d4d"
+    },
+    {
+      "path": "src/assets/fonts/RobotoMono-Bold.ttf",
+      "sha1": "9155bb87dab4ebc84ad4dffd69051e3dd33b73c0"
+    },
+    {
+      "path": "src/assets/fonts/RobotoMono-Medium.ttf",
+      "sha1": "c86b835df1f911c6fa48b0e28f9f3fe80b981f13"
+    },
+    {
+      "path": "src/assets/fonts/RobotoMono-Regular.ttf",
+      "sha1": "c25a072c96240ab8fc288b61edf2bb133aaa975d"
+    },
+    {
+      "path": "src/assets/fonts/RobotoMono-SemiBold.ttf",
+      "sha1": "3e27af4808640005903a8791831e78ef177189a2"
+    }
+  ]
+}
