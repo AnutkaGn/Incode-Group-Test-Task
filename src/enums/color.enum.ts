@@ -1,0 +1,18 @@
+export const COLORS = Object.freeze({
+	white: '#FFFFFF',
+	background: '#e8ebea',
+	background_green: '#0e5c2d',
+	background_hover: '#3C82F6',
+	background_inactive: '#668c76',
+	background_grey: '#D0D0D0',
+	background_red: '#FF6E6E',
+	background_blur: '#0000007f',
+	background_light_grey: '#F5F5F5',
+	border: '#E3E3E3',
+	border_focus: '#AEAEAE',
+	text_title: '#0e5c2d',
+	text_primary: '#000000',
+	text_secondary: '#777777',
+	danger: '#FF0000',
+	success: '#22BB00',
+});
