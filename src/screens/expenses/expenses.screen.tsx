@@ -10,7 +10,7 @@ export const ExpensesScreen: React.FC = () => {
 
     return (
         <Layout isScrollable={false}>
-            <Header title="My Expanses" showSettingsButton/>
+            <Header title="My Expanses" showSettingsButton showStatisticButton/>
             <ExpenseList />
             <Button
                 title="Add new expense"
