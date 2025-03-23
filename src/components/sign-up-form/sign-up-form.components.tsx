@@ -1,9 +1,11 @@
+import { Alert } from 'react-native';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
 import { Input, Button } from '../';
 import { signUpFormSchema, SignUpFormValues } from '../../validations';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { register } from '../../services';
-import { Alert } from 'react-native';
+import { AuthService } from '../../services';
+import { Messages } from '../../constants';
 
 export const SignUpForm = () => {
 	const {
@@ -18,14 +20,14 @@ export const SignUpForm = () => {
 
 	const onSubmit = async (data: SignUpFormValues) => {
 		try {
-			await register({
+			await AuthService.register({
 				username: data.fullName,
 				email: data.email,
 				password: data.password,
 			});
-			Alert.alert('Success', 'User registered successfully!');
-		} catch (error) {
-			Alert.alert('Error', 'Registration failed');
+		} catch (error: unknown) {
+			const errorMessage = error instanceof Error ? error.message : Messages.UNKNOWN_ERROR;
+			Alert.alert('Sign Up Error', errorMessage);
 		}
 	};
 

@@ -1,39 +1,53 @@
-import { FlatList } from 'react-native';
-import { Expense } from '../../types/expense.types';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, Text, View} from 'react-native';
+
+import { Loader } from '../loader';
 import { ExpenseItem } from './expense-item/expense-item.component';
+import { ExpenseService } from '../../services';
+import { useAuthStore } from '../../store';
+import { Expense } from '../../types';
+import { Messages } from '../../constants';
 import { styles } from './expenses-list.styles';
 
-const expenses: Expense[] = [
-  {
-    id: '1',
-    date: new Date(2025, 2, 21, 14, 30),
-    amount: 150,
-    title: 'New dress and shoes and something very interesting',
-    category: 'Clothes',
-  },
-  {
-    id: '2',
-    date: new Date(2025, 2, 20, 9, 0),
-    amount: 50,
-    title: 'Coffee',
-    category: 'Beverages',
-  },
-  {
-    id: '3',
-    date: new Date(2025, 2, 19, 19, 45),
-    amount: 200,
-    title: 'Dinner',
-    category: 'Restaurant',
-  },
-];
-
 export const ExpenseList: React.FC = () => {
-    return (
-      <FlatList
-        data={expenses}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ExpenseItem expense={item} />}
-        contentContainerStyle={styles.list_container}
-      />
-    );
+	const userId = useAuthStore(store => store.user!.uid);
+	const [expenses, setExpenses] = useState<Expense[]>([]);
+	const [loading, setLoading] = useState<boolean>(true);
+
+	useEffect(() => {
+		const fetchExpenses = async () => {
+			setLoading(true);
+			try {
+				const expensesData = await ExpenseService.getAll(userId);
+				setExpenses(expensesData);
+			} catch (error: unknown) {
+				const errorMessage = error instanceof Error ? error.message : Messages.UNKNOWN_ERROR;
+				Alert.alert('Error fetching expense:', errorMessage);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchExpenses();
+	}, [userId]);
+
+	const renderEmptyList = () => (
+		<Text style={styles.text}>Add the first expense.</Text>
+	);
+
+	if (loading) {
+		return <Loader/>;
+	}
+
+	return (
+		<View style={styles.list_container}>
+			<FlatList
+				data={expenses}
+				keyExtractor={(item) => item.id}
+				renderItem={({ item }) => <ExpenseItem expense={item} />}
+				showsVerticalScrollIndicator={false}
+				ListEmptyComponent={renderEmptyList}
+			/>
+		</View>
+	);
 };

@@ -8,3 +8,5 @@ export * from './header';
 export * from './auth-nav';
 export * from './expenses-list';
 export * from './expense-form';
+export * from './auth-provider';
+export * from './loader';
