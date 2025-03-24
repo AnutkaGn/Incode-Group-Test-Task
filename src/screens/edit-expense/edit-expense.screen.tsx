@@ -8,6 +8,8 @@ import { ExpenseFormValues } from '../../validations';
 import { ExpenseService } from '../../services';
 import { Expense } from '../../types';
 import { Messages } from '../../constants';
+import { COLORS } from '../../enums';
+import { useThemeStore } from '../../store';
 import { styles } from './edit-expense.styles';
 
 export const EditExpenseScreen: React.FC = () => {
@@ -15,23 +17,20 @@ export const EditExpenseScreen: React.FC = () => {
 		params: { id },
 	} = useRoute<RouteProp<RootStackParamList, NAVIGATION_KEYS.EDIT_EXPENSE>>();
 	const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
 	const [expense, setExpense] = useState<Expense | null>(null);
-	const [isLoading, setIsLoading] = useState(true);
+	const { theme } = useThemeStore();
+
+	const fetchExpense = async () => {
+		try {
+			const expenseToEdit = await ExpenseService.getById(id);
+			setExpense(expenseToEdit);
+		} catch (error: unknown) {
+			const errorMessage = error instanceof Error ? error.message : Messages.UNKNOWN_ERROR;
+			Alert.alert('Error fetching expense:', errorMessage);
+		}
+	};
 
 	useEffect(() => {
-		const fetchExpense = async () => {
-			try {
-				const expenseToEdit = await ExpenseService.getById(id);
-				setExpense(expenseToEdit);
-			} catch (error: unknown) {
-				const errorMessage = error instanceof Error ? error.message : Messages.UNKNOWN_ERROR;
-				Alert.alert('Error fetching expense:', errorMessage);
-			} finally {
-				setIsLoading(false);
-			}
-		};
-
 		fetchExpense();
 	}, [id]);
 
@@ -64,12 +63,12 @@ export const EditExpenseScreen: React.FC = () => {
 	return (
 		<Layout isScrollable={false}>
 			<Header title="Edit Expense" showBackButton showDeleteIcon onDeletePress={handleDelete} />
-			{isLoading ? (
+			{!expense ? (
 				<Loader/>
 			) : expense ? (
 				<ExpenseForm initialValues={expense} onSubmit={handleSubmit} submitButtonText="Save" />
 			) : (
-				<Text style={styles.text}>Expense not found.</Text>
+				<Text style={[styles.text, {color: COLORS[theme].text_secondary}]}>Expense not found.</Text>
 			)}
 		</Layout>
 	);

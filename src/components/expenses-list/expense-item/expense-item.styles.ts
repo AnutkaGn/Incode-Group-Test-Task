@@ -1,16 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONTS } from '../../../enums';
+import { FONTS } from '../../../enums';
 
 export const styles = StyleSheet.create({
 	item: {
 		flexDirection: 'column',
-		backgroundColor: COLORS.white,
 		paddingHorizontal: 16,
 		paddingVertical: 8,
 		borderRadius: 8,
 		marginBlockEnd: 16,
 	},
-	dateContainer: {
+	date_container: {
 		flexDirection: 'row',
 		alignItems: 'flex-start',
 		height: 48,
@@ -18,11 +17,10 @@ export const styles = StyleSheet.create({
 	day: {
 		fontSize: 32,
 		fontFamily: FONTS.POPPINS_BOLD,
-		color: COLORS.background_green,
 		marginRight: 8,
 		alignSelf: 'flex-start',
 	},
-	dateDetails: {
+	date_details: {
 		flexDirection: 'column',
 		alignItems: 'flex-start',
 		marginBlockStart:8,
@@ -30,12 +28,10 @@ export const styles = StyleSheet.create({
 	weekday: {
 		fontSize: 12,
 		fontWeight: 'bold',
-		color: COLORS.text_secondary,
 	},
-	monthYear: {
+	month_year: {
 		fontFamily: FONTS.POPPINS_REGULAR,
 		fontSize: 10,
-		color: COLORS.text_secondary,
 	},
 	container: {
 		flexDirection: 'row',
@@ -44,26 +40,22 @@ export const styles = StyleSheet.create({
 	},
 	title: {
 		fontFamily: FONTS.POPPINS_REGULAR,
-		color: COLORS.text_secondary,
 		fontSize: 14,
 	},
 	category: {
 		fontFamily: FONTS.POPPINS_REGULAR,
 		fontSize: 14,
-		color: COLORS.background_inactive,
 	},
-	amountContainer: {
+	amount_container: {
 		alignItems: 'flex-end',
 	},
 	amount: {
 		fontSize: 20,
 		fontFamily: FONTS.POPPINS_SEMIBOLD,
-		color: COLORS.text_primary,
 	},
 	time: {
 		fontFamily: FONTS.POPPINS_REGULAR,
 		fontSize: 14,
-		color: COLORS.text_secondary,
 		marginTop: 4,
 	},
 });

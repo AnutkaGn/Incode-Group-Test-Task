@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONTS } from '../../enums';
+import { FONTS } from '../../enums';
 
 export const styles = StyleSheet.create({
 	container: {
@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		paddingHorizontal: 20,
 		paddingVertical: 12,
-		backgroundColor: COLORS.background,
 		margin: -20,
 	},
 	icon_button: {
@@ -16,7 +15,6 @@ export const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 24,
-		color: COLORS.background_green,
 		fontFamily: FONTS.POPPINS_BOLD,
 		textAlign: 'center',
 		flex: 1,

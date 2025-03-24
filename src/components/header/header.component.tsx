@@ -1,19 +1,18 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import RNRestart from 'react-native-restart';
 
 import { BackArrowIcon } from '../../assets/icons/back-arrow';
 import { TrashBinIcon } from '../../assets/icons/trash-bin';
 import { AnalyticsIcon } from '../../assets/icons/analytics';
 import { SunIcon } from '../../assets/icons/sun';
 import { MoonIcon } from '../../assets/icons/moon';
+import { SettingsIcon } from '../../assets/icons/settings';
 import {
 	NAVIGATION_KEYS,
 	type RootStackParamList,
 } from '../../navigation';
-import { SettingsIcon } from '../../assets/icons/settings';
 import { useThemeStore } from '../../store';
-import { THEME } from '../../enums';
+import { COLORS, THEME } from '../../enums';
 import { styles } from './header.styles';
 
 interface HeaderProps {
@@ -43,17 +42,16 @@ export const Header: React.FC<HeaderProps> = ({
 
 	const onThemeToggle = () => {
 		setTheme();
-		RNRestart.restart();
 	};
 
 	return (
-		<View style={styles.container}>
+		<View style={[styles.container, {backgroundColor: COLORS[theme].background}]}>
 			{showBackButton && (
 				<TouchableOpacity
 					onPress={onBackPress || navigation.goBack}
 					style={styles.icon_button}
 				>
-					<BackArrowIcon />
+					<BackArrowIcon color={COLORS[theme].background_green}/>
 				</TouchableOpacity>
 			)}
 			{showSettingsButton && (
@@ -61,11 +59,11 @@ export const Header: React.FC<HeaderProps> = ({
 					onPress={() => navigation.navigate(NAVIGATION_KEYS.SETTINGS)}
 					style={styles.icon_button}
 				>
-					<SettingsIcon />
+					<SettingsIcon color={COLORS[theme].text_primary}/>
 				</TouchableOpacity>
 			)}
 
-			<Text style={styles.title}>{title}</Text>
+			<Text style={[styles.title, {color: COLORS[theme].background_green}]}>{title}</Text>
 
 			{showDeleteIcon && (
 				<TouchableOpacity onPress={onDeletePress} style={styles.icon_button}>
@@ -74,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
 			)}
 			{showThemeToggle && (
 				<TouchableOpacity onPress={onThemeToggle} style={styles.icon_button}>
-					{isDark ? <SunIcon/> : <MoonIcon/>}
+					{isDark ? <SunIcon color={COLORS[theme].text_primary}/> : <MoonIcon color={COLORS[theme].text_primary}/>}
 				</TouchableOpacity>
 			)}
 			{showStatisticButton && (
@@ -82,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({
 					onPress={() => navigation.navigate(NAVIGATION_KEYS.STATISTIC)}
 					style={styles.icon_button}
 				>
-					<AnalyticsIcon/>
+					<AnalyticsIcon color={COLORS[theme].text_primary}/>
 				</TouchableOpacity>
 			)}
 		</View>

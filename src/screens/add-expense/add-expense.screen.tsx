@@ -15,6 +15,7 @@ export const AddExpenseScreen: React.FC = () => {
 		await ExpenseService.create(newExpense);
 		navigation.navigate(NAVIGATION_KEYS.EXPENSES);
 	};
+
 	return (
 		<Layout isScrollable={false}>
 			<Header title="Add Expanse" showBackButton />

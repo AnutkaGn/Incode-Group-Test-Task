@@ -1,12 +1,17 @@
 import { Text } from 'react-native';
-import { styles } from './sign-up.styles';
+
 import { AuthNav, Layout, SignUpForm } from '../../components';
 import { NAVIGATION_KEYS } from '../../navigation';
+import { COLORS } from '../../enums';
+import { useThemeStore } from '../../store';
+import { styles } from './sign-up.styles';
 
 export const SignUpScreen: React.FC = () => {
+	const { theme } = useThemeStore();
+
 	return (
 		<Layout>
-			<Text style={styles.title}>Sign Up</Text>
+			<Text style={[styles.title, {color: COLORS[theme].background_green}]}>Sign Up</Text>
 			<SignUpForm />
 			<AuthNav
 				redirectText="Have you already registered? "

@@ -10,7 +10,6 @@ import { AuthService } from '../../services';
 import { Messages } from '../../constants';
 import { styles } from './login-form.styles';
 
-
 export const LoginForm: React.FC = () => {
 	const { control, handleSubmit } = useForm<LoginFormValues>({
 		mode: 'all',

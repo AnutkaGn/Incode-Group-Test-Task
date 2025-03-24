@@ -1,10 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../enums';
 
 export const styles = StyleSheet.create({
 	safe_area: {
 		flex: 1,
-		backgroundColor: COLORS.background,
 	},
 	scroll_container: {
 		flexGrow: 1,

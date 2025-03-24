@@ -10,3 +10,4 @@ export * from './expenses-list';
 export * from './expense-form';
 export * from './auth-provider';
 export * from './loader';
+export * from './filter-button';

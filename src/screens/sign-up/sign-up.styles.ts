@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONTS } from '../../enums';
+import { FONTS } from '../../enums';
 
 export const styles = StyleSheet.create({
 	title: {
@@ -8,6 +8,5 @@ export const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: 20,
 		marginBlockStart: 40,
-		color: COLORS.background_green,
 	},
 });

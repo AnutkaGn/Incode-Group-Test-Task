@@ -17,11 +17,13 @@ import {
 	useController,
 } from 'react-hook-form';
 
-import { styles } from './input.styles';
-import { InputError } from '../input-error';
-
 import { EyeIcon } from '../../assets/icons/eye';
 import { StrikedEyeIcon } from '../../assets/icons/striked-eye';
+
+import { InputError } from '../input-error';
+import { COLORS } from '../../enums';
+import { useThemeStore } from '../../store';
+import { styles } from './input.styles';
 
 type InputProps<
 	T extends FieldValues = FieldValues,
@@ -62,6 +64,7 @@ export function Input<
 	const [isFocused, setIsFocused] = React.useState(false);
 	const [showPassword, setShowPassword] = React.useState(!secureTextEntry);
 	const inputRef = React.createRef<TextInput>();
+	const { theme } = useThemeStore();
 
 	const {
 		field: { value, onBlur, onChange },
@@ -92,7 +95,7 @@ export function Input<
 
 	return (
 		<View style={[styles.container, extraInputContainerStyles]}>
-			{label && <Text style={styles.label}>{label}</Text>}
+			{label && <Text style={[styles.label, {color: COLORS[theme].text_secondary}]}>{label}</Text>}
 			<TextInput
 				value={value.toString()}
 				onChangeText={onChange}
@@ -101,9 +104,16 @@ export function Input<
 				style={[
 					styles.input,
 					value && !error && styles.correct,
-					isFocused && styles.focused,
-					error && styles.wrong,
-					disabled && styles.disabled,
+					isFocused ? styles.focused && {borderColor: COLORS[theme].border_focus} : {borderColor: COLORS[theme].border},
+					error && styles.wrong && {borderColor: COLORS[theme].danger},
+					disabled ? {
+						backgroundColor: COLORS[theme].background_light_grey,
+						color: COLORS[theme].text_secondary,
+					} :
+					{
+						color: COLORS[theme].text_primary,
+						backgroundColor: COLORS[theme].backround_input,
+					},
 				]}
 				autoCapitalize="none"
 				ref={inputRef}
@@ -113,7 +123,7 @@ export function Input<
 			/>
 			{secureTextEntry && (
 				<TouchableOpacity
-					style={styles.iconContainer}
+					style={styles.icon_container}
 					onPress={togglePasswordVisibility}
 				>
 					{showPassword ? <EyeIcon /> : <StrikedEyeIcon />}

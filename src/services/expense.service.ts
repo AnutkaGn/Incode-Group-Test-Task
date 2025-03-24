@@ -16,6 +16,7 @@ import {
 import { Expense } from '../types';
 import { TIME_PERIOD, TimePeriod } from '../enums';
 import { handleFirestoreError, mapExpense } from '../utils';
+import { Messages } from '../constants';
 
 const db = getFirestore();
 
@@ -32,7 +33,7 @@ export const ExpenseService = {
 
             return snapshot.docs.map(item => mapExpense({ id: item.id, ...item.data() }));
         } catch (error: unknown) {
-            throw new Error(handleFirestoreError(error, 'Failed to fetch expenses.'));
+            throw new Error(handleFirestoreError(error, Messages.FETCH_EXPENSES_FAILED));
         }
     },
 
@@ -43,7 +44,7 @@ export const ExpenseService = {
 
             return docSnap.exists() ? mapExpense({ id: docSnap.id, ...docSnap.data() }) : null;
         } catch (error: unknown) {
-            throw new Error(handleFirestoreError(error, 'Failed to fetch the expense.'));
+            throw new Error(handleFirestoreError(error, Messages.FETCH_EXPENSE_FAILED));
         }
     },
 
@@ -68,7 +69,7 @@ export const ExpenseService = {
                     startDate = startOfDay;
                     break;
                 default:
-                    throw new Error('Invalid period');
+                    throw new Error(Messages.INVALID_PERIOD);
             }
 
             const q = query(
@@ -78,11 +79,9 @@ export const ExpenseService = {
             );
 
             const snapshot = await getDocs(q);
-
-            const expenses = snapshot.docs.map(item => mapExpense({ id: item.id, ...item.data() }));
-            return expenses;
+            return snapshot.docs.map(item => mapExpense({ id: item.id, ...item.data() }));
         } catch (error: unknown) {
-            throw new Error(handleFirestoreError(error, 'Failed to fetch expenses.'));
+            throw new Error(handleFirestoreError(error, Messages.FETCH_EXPENSES_FAILED));
         }
     },
 
@@ -90,7 +89,7 @@ export const ExpenseService = {
         try {
             await addDoc(collection(db, 'expenses'), expense);
         } catch (error: unknown) {
-            throw new Error(handleFirestoreError(error, 'Failed to create the expense.'));
+            throw new Error(handleFirestoreError(error, Messages.CREATE_EXPENSE_FAILED));
         }
     },
 
@@ -98,7 +97,7 @@ export const ExpenseService = {
         try {
             await updateDoc(doc(db, 'expenses', id), updates);
         } catch (error: unknown) {
-            throw new Error(handleFirestoreError(error, 'Failed to update the expense.'));
+            throw new Error(handleFirestoreError(error, Messages.UPDATE_EXPENSE_FAILED));
         }
     },
 
@@ -106,7 +105,7 @@ export const ExpenseService = {
         try {
             await deleteDoc(doc(db, 'expenses', id));
         } catch (error: unknown) {
-            throw new Error(handleFirestoreError(error, 'Failed to delete the expense.'));
+            throw new Error(handleFirestoreError(error, Messages.DELETE_EXPENSE_FAILED));
         }
     },
 };

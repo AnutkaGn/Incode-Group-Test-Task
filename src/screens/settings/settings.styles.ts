@@ -1,12 +1,17 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONTS } from '../../enums';
+import { FONTS } from '../../enums';
 
 export const styles = StyleSheet.create({
+	logout:{
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		alignSelf: 'center',
+		marginBlockStart: '30%',
+	},
 	logout_text: {
-		color: COLORS.danger,
 		fontFamily: FONTS.POPPINS_REGULAR,
 		fontSize: 16,
-		marginBlockStart: 24,
 		marginLeft: 10,
 	},
 });

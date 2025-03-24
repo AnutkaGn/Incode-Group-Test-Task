@@ -46,7 +46,7 @@ export const AuthService = {
 			await signOut(auth);
 			useAuthStore.getState().setUser(null);
 		} catch (error: unknown) {
-			throw new Error(handleAuthError(error, Messages.LOGOUT_FAILD));
+			throw new Error(handleAuthError(error, Messages.LOGOUT_FAILED));
 		}
 	},
 };

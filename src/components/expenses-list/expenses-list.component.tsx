@@ -4,15 +4,17 @@ import { Alert, FlatList, Text, View} from 'react-native';
 import { Loader } from '../loader';
 import { ExpenseItem } from './expense-item/expense-item.component';
 import { ExpenseService } from '../../services';
-import { useAuthStore } from '../../store';
+import { useAuthStore, useThemeStore } from '../../store';
 import { Expense } from '../../types';
 import { Messages } from '../../constants';
+import { COLORS } from '../../enums';
 import { styles } from './expenses-list.styles';
 
 export const ExpenseList: React.FC = () => {
 	const userId = useAuthStore(store => store.user!.uid);
 	const [expenses, setExpenses] = useState<Expense[]>([]);
 	const [loading, setLoading] = useState<boolean>(true);
+	const { theme } = useThemeStore();
 
 	useEffect(() => {
 		const fetchExpenses = async () => {
@@ -32,7 +34,7 @@ export const ExpenseList: React.FC = () => {
 	}, [userId]);
 
 	const renderEmptyList = () => (
-		<Text style={styles.text}>Add the first expense.</Text>
+		<Text style={[styles.text, {color: COLORS[theme].text_secondary}]}>Add the first expense.</Text>
 	);
 
 	if (loading) {

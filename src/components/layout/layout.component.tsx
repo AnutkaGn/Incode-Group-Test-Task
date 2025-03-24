@@ -1,6 +1,9 @@
 import { View, ScrollView } from 'react-native';
-import { styles } from './layout.styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { COLORS } from '../../enums';
+import { useThemeStore } from '../../store';
+import { styles } from './layout.styles';
 
 type LayoutProps = {
 	children: React.ReactNode;
@@ -12,9 +15,10 @@ export const Layout: React.FC<LayoutProps> = ({
 	isScrollable = true,
 }) => {
 	const content = <View style={styles.content}>{children}</View>;
+	const { theme } = useThemeStore();
 
 	return (
-		<SafeAreaView style={styles.safe_area}>
+		<SafeAreaView style={[styles.safe_area, {backgroundColor: COLORS[theme].background}]}>
 			{isScrollable ? (
 				<ScrollView
 					contentContainerStyle={styles.scroll_container}
