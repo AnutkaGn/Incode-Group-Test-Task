@@ -72,10 +72,23 @@ export const StatisticScreen: React.FC = () => {
 			<Header title="Statistic" showBackButton />
 
 			<View style={styles.button_container}>
-				<FilterButton label="Day" setPeriod={() => setPeriod(TIME_PERIOD.day)}/>
-				<FilterButton label="Month" setPeriod={() => setPeriod(TIME_PERIOD.month)}/>
-				<FilterButton label="Year" setPeriod={() => setPeriod(TIME_PERIOD.year)}/>
+				<FilterButton
+					label="Day"
+					setPeriod={() => setPeriod(TIME_PERIOD.day)}
+					isActive={period === TIME_PERIOD.day}
+				/>
+				<FilterButton
+					label="Month"
+					setPeriod={() => setPeriod(TIME_PERIOD.month)}
+					isActive={period === TIME_PERIOD.month}
+				/>
+				<FilterButton
+					label="Year"
+					setPeriod={() => setPeriod(TIME_PERIOD.year)}
+					isActive={period === TIME_PERIOD.year}
+				/>
 			</View>
+
 			{(expenses.length && series.length) ? (
 				<>
 					<View style={styles.chart_container}>
