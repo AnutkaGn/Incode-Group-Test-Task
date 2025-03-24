@@ -1,97 +1,83 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native Expense Tracker
 
-# Getting Started
+A mobile application for tracking personal expenses, built with React Native (CLI setup) and Firebase.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+For this project, I chose Firebase because it offers an easy-to-use NoSQL database (Firestore) with real-time data synchronization, as well as built-in user authentication. Firebase's full integration with React Native and its scalability are the main advantages.
 
-## Step 1: Start Metro
+## Setup
+1. Clone the repository:
+```
+git clone https://github.com/your-username/your-repo.git
+```
+2. Install dependencies:
+```
+npm install
+# or
+yarn install
+```
+3. Set Up Firebase
+Go to Firebase Console.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+	1. Create a new project.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+	2. Add an Android app and register the package name.
 
-```sh
-# Using npm
-npm start
+	3. Download the google-services.json file and place it inside android/app/.
 
-# OR using Yarn
-yarn start
+	4. Enable Firebase Authentication (Email/Password).
+
+	5. Set up Firestore Database in test mode.
+
+	6. Add Firebase Firestore rules to secure your data.
+	```
+	rules_version = '2';
+	service cloud.firestore {
+	match /databases/{database}/documents {
+		match /expenses/{userId}/{expenseId} {
+		allow read, write: if request.auth != null && request.auth.uid == userId;
+		}
+	}
+	}
+	```
+4. Configure Environment Variables
+
+Create a .env file in the root of the project and add:
+```
+API_KEY=your_firebase_api_key
+AUTH_DOMAIN=your_firebase_auth_domain
+PROJECT_ID=your_firebase_project_id
+STORAGE_BUCKET=your_firebase_storage_bucket
+MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+APP_ID=your_firebase_app_id
+MEASUREMENT_ID=your-measurement-id
+```
+5. Run the Application
+
+Android
+```
+npx react-native run-android
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+## Project Structure
+```
+├── src/
+|   ├── assets/          # Icons and fonts
+│   ├── components/      # Reusable UI components
+│   ├── screens/         # Application screens
+│   ├── services/        # Firebase service interactions
+│   ├── store/           # Zustand state management
+│   ├── utils/           # Helper functions
+│   ├── types/           # TypeScript type definitions
+|   ├── constants/       # Static values used across the app
+|   ├── enums/           # TypeScript enums for managing app states and options
+|   ├── navigation/      # Navigation stack and tab configurations
+|   ├── validations/     # Input validation schemas
+├── android/             # Android-specific files
+├── ios/                 # iOS-specific files
+├── .env                 # Environment variables
+├── App.tsx              # Entry point
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Aditional Features
+1. Toggle theme (dark/light mode)
+2. Statistic screen with visual charts and spending insights
